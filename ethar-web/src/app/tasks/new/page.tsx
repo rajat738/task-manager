@@ -20,7 +20,8 @@ export default function NewTaskPage() {
   useEffect(() => {
     if (session?.user) {
       const token = (session.user as any).backendToken;
-      fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/projects`, {
+      const apiUrl = process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000";
+      fetch(`${apiUrl}/api/projects`, {
         headers: { Authorization: `Bearer ${token}` },
       })
         .then((res) => res.json())
@@ -42,7 +43,8 @@ export default function NewTaskPage() {
     const token = (session.user as any).backendToken;
 
     try {
-      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/tasks`, {
+      const apiUrl = process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000";
+      const res = await fetch(`${apiUrl}/api/tasks`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -136,8 +138,10 @@ export default function NewTaskPage() {
           </button>
 
           {!projectId && projects.length === 0 && (
-            <p style={{ color: "var(--danger)", fontSize: "0.8rem" }}>
-              You need a project to create a task. Ask an admin to create one.
+            <p style={{ color: "var(--danger)", fontSize: "0.8rem", textAlign: "center" }}>
+              You need to create a Project first before adding a task.
+              <br />
+              <Link href="/projects/new" style={{ color: "var(--primary)", textDecoration: "underline" }}>Create a Project</Link>
             </p>
           )}
         </form>

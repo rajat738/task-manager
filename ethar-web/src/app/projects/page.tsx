@@ -7,7 +7,8 @@ import Link from "next/link";
 
 async function fetchProjects(token: string) {
   try {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/projects`, {
+    const apiUrl = process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000";
+    const res = await fetch(`${apiUrl}/api/projects`, {
       headers: { Authorization: `Bearer ${token}` },
       cache: "no-store",
     });
@@ -33,11 +34,9 @@ export default async function ProjectsPage() {
       <header className={styles.header}>
         <h1>Projects</h1>
         <div className={styles.headerActions}>
-          {(session.user as any)?.role === "ADMIN" && (
-            <Link href="/projects/new" className="btn-primary">
-              + New Project
-            </Link>
-          )}
+          <Link href="/projects/new" className="btn-primary">
+            + New Project
+          </Link>
         </div>
       </header>
 
@@ -78,10 +77,7 @@ export default async function ProjectsPage() {
         ) : (
           <div className={styles.emptyState} style={{ gridColumn: "1 / -1" }}>
             <p>
-              No projects found.{" "}
-              {(session.user as any)?.role === "ADMIN"
-                ? "Create one to get started!"
-                : "Ask your admin to assign you to a project."}
+              No projects found. Create one to get started!
             </p>
           </div>
         )}

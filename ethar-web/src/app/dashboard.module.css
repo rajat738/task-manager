@@ -7,34 +7,39 @@
 }
 
 .sidebar {
-  width: 260px;
+  width: 280px;
   display: flex;
   flex-direction: column;
+  background: rgba(17, 18, 24, 0.8);
+  backdrop-filter: blur(20px);
   border-right: 1px solid var(--glass-border);
-  border-radius: 0;
-  padding: 1.5rem 1rem;
+  padding: 2rem 1.25rem;
+  z-index: 10;
 }
 
 .brand {
   display: flex;
   align-items: center;
-  gap: 0.75rem;
-  padding-bottom: 2rem;
+  gap: 1rem;
+  padding-bottom: 2.5rem;
   margin-bottom: 1rem;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
 }
 
 .logo {
-  width: 24px;
-  height: 24px;
-  background: linear-gradient(135deg, var(--primary), #a855f7);
-  border-radius: 6px;
+  width: 32px;
+  height: 32px;
+  background: linear-gradient(135deg, var(--primary), #ec4899);
+  border-radius: 8px;
+  box-shadow: 0 4px 12px var(--primary-glow);
 }
 
 .brand h2 {
-  font-size: 1.25rem;
-  font-weight: 700;
+  font-size: 1.4rem;
+  font-weight: 800;
   letter-spacing: -0.5px;
+  background: linear-gradient(to right, #ffffff, #a1a1aa);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
 .nav {
@@ -45,50 +50,64 @@
 }
 
 .navItem {
-  padding: 0.75rem 1rem;
+  padding: 0.85rem 1.2rem;
   border-radius: var(--radius);
   color: var(--text-muted);
-  font-weight: 500;
+  font-weight: 600;
   font-size: 0.95rem;
-  transition: all 0.2s ease;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
 }
 
 .navItem:hover {
-  background: rgba(255, 255, 255, 0.05);
+  background: rgba(255, 255, 255, 0.04);
   color: var(--text-main);
+  transform: translateX(4px);
 }
 
 .active {
-  background: rgba(99, 102, 241, 0.1);
+  background: linear-gradient(90deg, rgba(139, 92, 246, 0.15), transparent);
   color: var(--primary);
+  border-left: 3px solid var(--primary);
 }
 
 .active:hover {
-  background: rgba(99, 102, 241, 0.15);
+  background: linear-gradient(90deg, rgba(139, 92, 246, 0.2), transparent);
   color: var(--primary);
+  transform: none;
 }
 
 .userProfile {
   display: flex;
   align-items: center;
-  gap: 0.75rem;
+  gap: 1rem;
   padding: 1rem;
-  background: rgba(0, 0, 0, 0.2);
+  background: rgba(0, 0, 0, 0.3);
+  border: 1px solid rgba(255, 255, 255, 0.05);
   border-radius: var(--radius);
   margin-top: auto;
+  transition: all 0.2s ease;
+}
+
+.userProfile:hover {
+  background: rgba(0, 0, 0, 0.5);
+  border-color: rgba(255, 255, 255, 0.1);
 }
 
 .avatar {
-  width: 32px;
-  height: 32px;
+  width: 36px;
+  height: 36px;
   border-radius: 50%;
-  background: var(--primary);
+  background: linear-gradient(135deg, var(--primary), #6d28d9);
   display: flex;
   align-items: center;
   justify-content: center;
-  font-weight: 600;
+  font-weight: 700;
   color: white;
   text-transform: uppercase;
+  box-shadow: 0 2px 8px var(--primary-glow);
 }
 
 .userInfo {
@@ -97,22 +116,26 @@
 }
 
 .userName {
-  font-size: 0.9rem;
+  font-size: 0.95rem;
   font-weight: 600;
+  color: var(--text-main);
 }
 
 .userRole {
   font-size: 0.75rem;
-  color: var(--text-muted);
+  color: var(--primary);
+  font-weight: 600;
+  letter-spacing: 0.05em;
 }
 
 .mainContent {
   flex: 1;
   overflow-y: auto;
-  padding: 2rem 3rem;
+  padding: 2.5rem 4rem;
   display: flex;
   flex-direction: column;
-  gap: 2rem;
+  gap: 2.5rem;
+  position: relative;
 }
 
 .header {
@@ -122,89 +145,144 @@
 }
 
 .header h1 {
-  font-size: 1.75rem;
-  font-weight: 700;
+  font-size: 2rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
 }
 
 .statsGrid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
   gap: 1.5rem;
 }
 
 .statCard {
-  padding: 1.5rem;
-  border-radius: 12px;
+  padding: 1.75rem;
+  border-radius: 16px;
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;
+  gap: 0.75rem;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  border: 1px solid var(--glass-border);
+}
+
+.statCard::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(circle at top right, rgba(255,255,255,0.05), transparent 60%);
+  pointer-events: none;
+}
+
+.statCard:hover {
+  transform: translateY(-5px);
+  border-color: rgba(139, 92, 246, 0.3);
+  box-shadow: 0 12px 24px -8px var(--primary-glow);
 }
 
 .statCard h3 {
   font-size: 0.9rem;
   color: var(--text-muted);
-  font-weight: 500;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
 }
 
 .statValue {
-  font-size: 2rem;
-  font-weight: 700;
+  font-size: 2.5rem;
+  font-weight: 800;
   color: var(--text-main);
+  background: linear-gradient(135deg, #ffffff 0%, #a1a1aa 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
 .recentSection {
-  padding: 1.5rem;
-  border-radius: 12px;
+  padding: 2rem;
+  border-radius: 16px;
+  border: 1px solid var(--glass-border);
 }
 
 .sectionHeader {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 1.5rem;
+  margin-bottom: 2rem;
 }
 
 .sectionHeader h2 {
-  font-size: 1.2rem;
-  font-weight: 600;
+  font-size: 1.4rem;
+  font-weight: 700;
 }
 
 .viewAll {
   color: var(--primary);
-  font-size: 0.9rem;
-  font-weight: 500;
+  font-size: 0.95rem;
+  font-weight: 600;
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  background: rgba(139, 92, 246, 0.1);
+  transition: all 0.2s ease;
 }
 
 .viewAll:hover {
-  text-decoration: underline;
+  background: rgba(139, 92, 246, 0.2);
+  transform: translateX(4px);
 }
 
 .emptyState {
-  padding: 3rem;
+  padding: 4rem 2rem;
   text-align: center;
   color: var(--text-muted);
   background: rgba(0, 0, 0, 0.2);
   border-radius: var(--radius);
-  border: 1px dashed var(--surface-border);
+  border: 1px dashed rgba(255,255,255,0.1);
+  font-size: 1.1rem;
 }
 
 .taskList {
   display: flex;
   flex-direction: column;
-  gap: 0.75rem;
+  gap: 1rem;
 }
 
 .taskItem {
-  padding: 1rem;
+  padding: 1.25rem 1.5rem;
   background: rgba(0, 0, 0, 0.2);
-  border-radius: var(--radius);
-  border: 1px solid var(--surface-border);
-  transition: all 0.2s ease;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.04);
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+}
+
+.taskItem::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 3px;
+  background: var(--primary);
+  opacity: 0;
+  transition: opacity 0.2s ease;
 }
 
 .taskItem:hover {
+  background: rgba(255, 255, 255, 0.03);
   border-color: rgba(255, 255, 255, 0.1);
   transform: translateX(4px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+}
+
+.taskItem:hover::before {
+  opacity: 1;
 }
 
 .taskInfo {
@@ -214,6 +292,8 @@
 }
 
 .taskInfo h4 {
-  font-size: 0.95rem;
-  font-weight: 500;
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: var(--text-main);
+  margin-bottom: 0.25rem;
 }
