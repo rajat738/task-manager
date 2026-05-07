@@ -23,7 +23,8 @@ export default function NewProjectPage() {
     const token = (session.user as any).backendToken;
 
     try {
-      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/projects`, {
+      const apiUrl = process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000";
+      const res = await fetch(`${apiUrl}/api/projects`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -32,7 +33,6 @@ export default function NewProjectPage() {
         body: JSON.stringify({
           name,
           description,
-          teamId: "team_placeholder", // Assuming backend handles team linking or needs it. We'll use a placeholder for now, backend project.controller needs teamId
         }),
       });
 
@@ -50,15 +50,7 @@ export default function NewProjectPage() {
     }
   };
 
-  if ((session?.user as any)?.role !== "ADMIN") {
-    return (
-      <AppLayout>
-        <div style={{ padding: "2rem", textAlign: "center" }}>
-          You do not have permission to access this page.
-        </div>
-      </AppLayout>
-    );
-  }
+  // Removed ADMIN check so any user can create a project.
 
   return (
     <AppLayout>

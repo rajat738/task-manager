@@ -30,6 +30,7 @@ export const register = async (req: Request, res: Response) => {
         user: { id: user.id, email: user.email, role: user.role },
       });
   } catch (error) {
+    console.error("[Register Error]", error);
     res.status(500).json({ message: "Internal server error" });
   }
 };
